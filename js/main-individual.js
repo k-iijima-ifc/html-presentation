@@ -40,7 +40,7 @@ function buildEffectSelector() {
     });
     
     // カテゴリ順序
-    const categoryOrder = ['basic', '3d', 'rotate', 'physics', 'mask', 'filter', 'special'];
+    const categoryOrder = ['basic', '3d', 'rotate', 'physics', 'mask', 'filter', 'special', 'collapse', 'iforcom'];
     const categoryNames = {
         'basic': '🎯 基本エフェクト',
         '3d': '🎲 3Dエフェクト',
@@ -49,6 +49,8 @@ function buildEffectSelector() {
         'mask': '🎭 マスクエフェクト',
         'filter': '🌈 フィルターエフェクト',
         'special': '✨ スペシャルエフェクト',
+        'collapse': '💥 崩壊エフェクト',
+        'iforcom': '🔮 IFORCOMエフェクト',
         'other': '📦 その他'
     };
     
