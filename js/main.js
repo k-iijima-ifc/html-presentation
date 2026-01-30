@@ -1,14 +1,22 @@
-// メインスクリプト - 初期化と共通処理
-// effectRegistryを使用した個別ファイル読み込み版
+/**
+ * メインスクリプト
+ * iframeエフェクト切り替えデモのコア処理
+ * 
+ * 依存: effectRegistry (js/effects/index.js)
+ *       iframeContents (iframe-config.js)
+ *       GSAP (外部ライブラリ)
+ */
 
-// 設定
-let currentIndex = 0;
-let currentEffect = 'fade';
-let isAnimating = false;
-let effectDefinitions = {};
-let effects = {};
+// 状態管理
+let currentIndex = 0;      // 現在表示中のコンテンツインデックス
+let currentEffect = 'fade'; // 現在選択中のエフェクト
+let isAnimating = false;   // アニメーション中フラグ
+let effectDefinitions = {}; // エフェクト定義（名前・カテゴリ）
+let effects = {};          // エフェクト関数マップ
 
-// effectRegistryからエフェクト情報を初期化
+/**
+ * effectRegistryからエフェクト情報を読み込み
+ */
 function initializeEffects() {
     const allEffects = effectRegistry.getAll();
     for (const [key, value] of Object.entries(allEffects)) {
@@ -119,7 +127,7 @@ function switchContent(newIndex) {
     const container = document.getElementById('iframeContainer');
 
     // ページボタンのアクティブ状態を更新
-    document.querySelectorAll('.page-list .btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.page-tabs .btn').forEach(btn => btn.classList.remove('active'));
     const pageBtn = document.getElementById(`page-btn-${newIndex}`);
     if (pageBtn) pageBtn.classList.add('active');
 
