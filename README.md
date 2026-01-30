@@ -1,5 +1,10 @@
 ﻿# GSAP iframeエフェクト デモ
 
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen?logo=github)](https://k-iijima-ifc.github.io/html-presentation/iframe-gsap-demo-modular.html)
+[![GSAP](https://img.shields.io/badge/GSAP-3.12.5-88CE02?logo=greensock)](https://greensock.com/gsap/)
+[![Three.js](https://img.shields.io/badge/Three.js-r128-000000?logo=three.js)](https://threejs.org/)
+[![Matter.js](https://img.shields.io/badge/Matter.js-0.19.0-4B5562)](https://brm.io/matter-js/)
+
 ⚠️ **実験用リポジトリ** - 技術検証・学習目的
 
 ## デモ
