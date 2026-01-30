@@ -59,7 +59,7 @@ function initializeContent() {
     // エフェクトをグループ化（実際に登録されているエフェクトのみ表示）
     const effectGroups = {
         '基本': ['fade', 'slide', 'slideUp', 'zoom', 'zoomOut'],
-        '3D': ['flip', 'flipX', 'cube', 'fold', 'paperRoll', 'paperRollFront', 'paperUnroll', 'paperUnrollFront'],
+        '3D': ['flip', 'flipX', 'cube', 'fold', 'paperRoll', 'paperRollFront'],
         '回転': ['rotate', 'spiral', 'windmill'],
         '物理': ['bounce', 'elastic', 'swing'],
         'マスク': ['curtain', 'iris', 'wipe', 'diamond', 'blinds'],
