@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>サンプルページ4 - SNS</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; }
+        .header { background: linear-gradient(90deg, #833ab4, #fd1d1d, #fcb045); padding: 12px 25px; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { color: white; font-size: 22px; }
+        .header-icons { display: flex; gap: 15px; color: white; font-size: 18px; }
+        .main { max-width: 600px; margin: 20px auto; }
+        .post { background: white; border-radius: 12px; margin-bottom: 15px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .post-header { padding: 15px; display: flex; align-items: center; gap: 12px; }
+        .post-avatar { width: 40px; height: 40px; border-radius: 50%; }
+        .post-user { font-weight: bold; color: #333; }
+        .post-time { font-size: 12px; color: #888; }
+        .post-image { width: 100%; height: 300px; }
+        .post-actions { padding: 12px 15px; display: flex; gap: 20px; font-size: 22px; }
+        .post-likes { padding: 0 15px; font-weight: bold; color: #333; }
+        .post-caption { padding: 5px 15px 15px; color: #333; line-height: 1.5; }
+        .post-caption strong { font-weight: bold; }
+        .stories { display: flex; gap: 15px; padding: 15px; background: white; border-radius: 12px; margin-bottom: 15px; overflow-x: auto; }
+        .story { text-align: center; }
+        .story-ring { width: 65px; height: 65px; border-radius: 50%; padding: 3px; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .story-img { width: 100%; height: 100%; border-radius: 50%; border: 3px solid white; background: #ddd; }
+        .story-name { font-size: 11px; color: #333; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📸 Photogram</h1>
+        <div class="header-icons">
+            <span>➕</span>
+            <span>❤️</span>
+            <span>💬</span>
+        </div>
+    </div>
+    <div class="main">
+        <div class="stories">
+            <div class="story">
+                <div class="story-ring"><div class="story-img"></div></div>
+                <div class="story-name">あなた</div>
+            </div>
+            <div class="story">
+                <div class="story-ring"><div class="story-img" style="background: linear-gradient(135deg, #667eea, #764ba2);"></div></div>
+                <div class="story-name">user_1</div>
+            </div>
+            <div class="story">
+                <div class="story-ring"><div class="story-img" style="background: linear-gradient(135deg, #f093fb, #f5576c);"></div></div>
+                <div class="story-name">user_2</div>
+            </div>
+            <div class="story">
+                <div class="story-ring"><div class="story-img" style="background: linear-gradient(135deg, #4facfe, #00f2fe);"></div></div>
+                <div class="story-name">user_3</div>
+            </div>
+        </div>
+        <div class="post">
+            <div class="post-header">
+                <div class="post-avatar" style="background: linear-gradient(135deg, #667eea, #764ba2);"></div>
+                <div>
+                    <div class="post-user">travel_lover</div>
+                    <div class="post-time">2時間前</div>
+                </div>
+            </div>
+            <div class="post-image" style="background: linear-gradient(135deg, #ff9a9e, #fecfef, #fecfef);"></div>
+            <div class="post-actions">
+                <span>❤️</span>
+                <span>💬</span>
+                <span>📤</span>
+                <span style="margin-left: auto;">🔖</span>
+            </div>
+            <div class="post-likes">1,234 いいね</div>
+            <div class="post-caption"><strong>travel_lover</strong> 最高の週末でした！🌅 #旅行 #週末 #絶景</div>
+        </div>
+    </div>
+</body>
+</html>

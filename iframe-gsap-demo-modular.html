@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSAP+ iframeエフェクト切り替えデモ</title>
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <!-- html2canvas (スクリーンキャプチャ用) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Matter.js (物理エンジン) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <!-- Three.js (3Dエンジン) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/effects/glitch.css">
+    <link rel="stylesheet" href="css/effects/iforcom.css">
+    <link rel="stylesheet" href="css/effects/collapse.css">
+</head>
+<body>
+    <div class="two-pane-layout">
+        <!-- 左ペイン: メインコンテンツ表示エリア -->
+        <div class="main-pane">
+            <!-- ページ選択タブ -->
+            <div class="page-tabs" id="contentButtons">
+                <!-- 動的に生成されます -->
+            </div>
+            
+            <div class="iframe-container" id="iframeContainer">
+                <!-- 動的に生成されます -->
+                <div class="iforcom-overlay" id="iforcomOverlay">
+                    <div class="iforcom-text" id="iforcomText">IFORCOM</div>
+                </div>
+                <div class="iforcom-idot-overlay" id="iforcomIdotOverlay">
+                    <div class="iforcom-idot-text" id="iforcomIdotText">
+                        <span class="i-letter">
+                            <span class="i-dot" id="iDot"></span>
+                            <span class="i-body">i</span>
+                        </span>FORCOM
+                    </div>
+                </div>
+                <div class="idot-next-preview" id="idotNextPreview"></div>
+                <div class="blocks-container" id="blocksContainer"></div>
+            </div>
+            
+            <div class="status">
+                現在のエフェクト: <span id="currentEffect">フェード</span> | 
+                表示中: <span id="currentContent">Google</span>
+            </div>
+        </div>
+
+        <!-- 右ペイン: エフェクトメニュー -->
+        <div class="side-pane">
+            <div class="side-header">
+                <h2>✨ エフェクト</h2>
+            </div>
+
+            <div class="side-section">
+                <div class="effect-list" id="effectButtons">
+                    <!-- 動的に生成されます -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 設定 -->
+    <script src="iframe-config.js"></script>
+    
+    <!-- エフェクト -->
+    <script src="js/effects/basic.js"></script>
+    <script src="js/effects/3d.js"></script>
+    <script src="js/effects/rotate.js"></script>
+    <script src="js/effects/physics.js"></script>
+    <script src="js/effects/mask.js"></script>
+    <script src="js/effects/filter.js"></script>
+    <script src="js/effects/special.js"></script>
+    <script src="js/effects/iforcom.js"></script>
+    <script src="js/effects/collapse.js"></script>
+    
+    <!-- メイン -->
+    <script src="js/main.js"></script>
+</body>
+</html>
