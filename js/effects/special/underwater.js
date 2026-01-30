@@ -59,6 +59,22 @@ async function effect_underwater(current, next, container) {
         });
     }
 
+    // 魚を生成
+    const fishes = [];
+    for (let i = 0; i < 12; i++) {
+        const direction = Math.random() > 0.5 ? 1 : -1;
+        fishes.push({
+            x: direction > 0 ? -50 : width + 50,
+            y: 50 + Math.random() * (height - 100),
+            size: 15 + Math.random() * 25,
+            speed: (1 + Math.random() * 2) * direction,
+            wobble: Math.random() * Math.PI * 2,
+            wobbleSpeed: 0.05 + Math.random() * 0.05,
+            color: `hsl(${Math.random() * 60 + 180}, 70%, 50%)`, // 青〜緑系
+            tailPhase: Math.random() * Math.PI * 2
+        });
+    }
+
     let startTime = performance.now();
     let isAnimating = true;
     let waterPhase = 0;
@@ -88,6 +104,63 @@ async function effect_underwater(current, next, container) {
         ctx.fillRect(0, 0, width, height);
 
         bubbleCtx.clearRect(0, 0, width, height);
+        
+        // 魚を描画
+        fishes.forEach(fish => {
+            fish.x += fish.speed;
+            fish.wobble += fish.wobbleSpeed;
+            fish.tailPhase += 0.2;
+            const wobbleY = Math.sin(fish.wobble) * 5;
+            
+            // 画面外に出たらリセット
+            if ((fish.speed > 0 && fish.x > width + 50) || (fish.speed < 0 && fish.x < -50)) {
+                fish.speed = -fish.speed;
+                fish.y = 50 + Math.random() * (height - 100);
+            }
+            
+            const fx = fish.x, fy = fish.y + wobbleY, s = fish.size;
+            const dir = fish.speed > 0 ? 1 : -1;
+            
+            bubbleCtx.save();
+            bubbleCtx.translate(fx, fy);
+            bubbleCtx.scale(dir, 1);
+            
+            // 尾びれ（波打つ）
+            const tailWave = Math.sin(fish.tailPhase) * 5;
+            bubbleCtx.fillStyle = fish.color;
+            bubbleCtx.beginPath();
+            bubbleCtx.moveTo(-s * 0.3, 0);
+            bubbleCtx.quadraticCurveTo(-s * 0.6, tailWave - 8, -s * 0.8, tailWave - 12);
+            bubbleCtx.quadraticCurveTo(-s * 0.5, tailWave, -s * 0.8, tailWave + 12);
+            bubbleCtx.quadraticCurveTo(-s * 0.6, tailWave + 8, -s * 0.3, 0);
+            bubbleCtx.fill();
+            
+            // 体
+            bubbleCtx.beginPath();
+            bubbleCtx.ellipse(0, 0, s * 0.5, s * 0.25, 0, 0, Math.PI * 2);
+            bubbleCtx.fill();
+            
+            // 背びれ
+            bubbleCtx.beginPath();
+            bubbleCtx.moveTo(-s * 0.1, -s * 0.2);
+            bubbleCtx.lineTo(s * 0.1, -s * 0.35);
+            bubbleCtx.lineTo(s * 0.2, -s * 0.2);
+            bubbleCtx.fill();
+            
+            // 目
+            bubbleCtx.fillStyle = 'white';
+            bubbleCtx.beginPath();
+            bubbleCtx.arc(s * 0.25, -s * 0.05, s * 0.08, 0, Math.PI * 2);
+            bubbleCtx.fill();
+            bubbleCtx.fillStyle = 'black';
+            bubbleCtx.beginPath();
+            bubbleCtx.arc(s * 0.27, -s * 0.05, s * 0.04, 0, Math.PI * 2);
+            bubbleCtx.fill();
+            
+            bubbleCtx.restore();
+        });
+        
+        // 泡を描画
         bubbles.forEach(bubble => {
             bubble.y -= bubble.speed;
             bubble.wobble += bubble.wobbleSpeed;
