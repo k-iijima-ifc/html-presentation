@@ -1,4 +1,4 @@
-﻿# GSAP iframeエフェクト デモ
+﻿#  画面遷移エフェクト デモ
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen?logo=github)](https://k-iijima-ifc.github.io/html-presentation/iframe-gsap-demo-modular.html)
 [![GSAP](https://img.shields.io/badge/GSAP-3.12.5-88CE02?logo=greensock)](https://greensock.com/gsap/)
