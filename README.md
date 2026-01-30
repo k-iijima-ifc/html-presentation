@@ -18,32 +18,48 @@ iframeコンテンツの切り替え時に様々なアニメーションエフ�
 ## 📁 プロジェクト構成
 
 ```
-├── iframe-gsap-demo-modular.html  # メインHTML
-├── iframe-config.js               # コンテンツ設定
+├── iframe-gsap-demo-modular.html     # メインHTML（グループ別ファイル版）
+├── iframe-gsap-demo-individual.html  # メインHTML（個別ファイル版）⭐ NEW
+├── iframe-config.js                  # コンテンツ設定
 ├── css/
-│   ├── main.css                   # メインスタイル
-│   └── effects/                   # エフェクト専用CSS
+│   ├── main.css                      # メインスタイル
+│   └── effects/                      # エフェクト専用CSS
 │       ├── collapse.css
 │       ├── glitch.css
 │       └── iforcom.css
 ├── js/
-│   ├── main.js                    # メインロジック
-│   └── effects/                   # エフェクトモジュール
-│       ├── 3d.js                  # 3D系エフェクト
-│       ├── basic.js               # 基本エフェクト（フェード、スライド等）
-│       ├── collapse.js            # 崩壊系エフェクト
-│       ├── filter.js              # フィルター系エフェクト
-│       ├── iforcom.js             # IFORCOM専用エフェクト
-│       ├── mask.js                # マスク系エフェクト
-│       ├── physics.js             # 物理演算エフェクト
-│       ├── rotate.js              # 回転系エフェクト
-│       └── special.js             # 特殊エフェクト
-└── samples/                       # サンプルページ
+│   ├── main.js                       # メインロジック（グループ版）
+│   ├── main-individual.js            # メインロジック（個別版）
+│   └── effects/
+│       ├── 3d.js                     # 3D系エフェクト（グループ版）
+│       ├── basic.js                  # 基本エフェクト（グループ版）
+│       ├── ...                       # その他グループ版ファイル
+│       └── individual/               # ⭐ 個別エフェクトファイル
+│           ├── index.js              # エフェクト統合
+│           ├── fade.js               # フェード
+│           ├── slide.js              # スライド
+│           ├── flip.js               # フリップ
+│           ├── glitch.js             # グリッチ
+│           └── ...                   # 各エフェクト1ファイル
+└── samples/                          # サンプルページ
     ├── page1-news.html
     ├── page2-dashboard.html
     ├── page3-shop.html
     └── page4-sns.html
 ```
+
+## 📂 ファイル構成の選択
+
+### グループ別ファイル版（従来）
+- `iframe-gsap-demo-modular.html` を使用
+- エフェクトがカテゴリごとにまとまっている
+- ファイル数が少なくシンプル
+
+### 個別ファイル版（新規）⭐
+- `iframe-gsap-demo-individual.html` を使用
+- 1エフェクト = 1ファイル
+- エフェクトの追加・削除・編集が容易
+- 他プロジェクトへのコピーが簡単
 
 ## 🎨 エフェクト一覧
 
