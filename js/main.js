@@ -1,35 +1,24 @@
 // メインスクリプト - 初期化と共通処理
+// effectRegistryを使用した個別ファイル読み込み版
 
 // 設定
 let currentIndex = 0;
 let currentEffect = 'fade';
 let isAnimating = false;
+let effectDefinitions = {};
+let effects = {};
 
-// 全エフェクト定義を結合
-const effectDefinitions = {
-    ...basicEffectDefinitions,
-    ...effects3DDefinitions,
-    ...rotateEffectDefinitions,
-    ...physicsEffectDefinitions,
-    ...maskEffectDefinitions,
-    ...filterEffectDefinitions,
-    ...specialEffectDefinitions,
-    ...iforcomEffectDefinitions,
-    ...collapseEffectDefinitions
-};
-
-// 全エフェクト関数を結合
-const effects = {
-    ...basicEffects,
-    ...effects3D,
-    ...rotateEffects,
-    ...physicsEffects,
-    ...maskEffects,
-    ...filterEffects,
-    ...specialEffects,
-    ...iforcomEffects,
-    ...collapseEffects
-};
+// effectRegistryからエフェクト情報を初期化
+function initializeEffects() {
+    const allEffects = effectRegistry.getAll();
+    for (const [key, value] of Object.entries(allEffects)) {
+        effectDefinitions[key] = {
+            name: value.name,
+            category: value.category
+        };
+        effects[key] = value.fn;
+    }
+}
 
 // 初期化：コンテンツボタンとiframeを動的生成
 function initializeContent() {
@@ -59,17 +48,17 @@ function initializeContent() {
         iframeContainer.appendChild(wrapper);
     });
 
-    // エフェクトをグループ化
+    // エフェクトをグループ化（実際に登録されているエフェクトのみ表示）
     const effectGroups = {
-        '基本': ['fade', 'slide', 'slideUp', 'slideDown', 'zoom', 'zoomOut', 'push', 'cover', 'reveal', 'swap'],
+        '基本': ['fade', 'slide', 'slideUp', 'zoom', 'zoomOut'],
         '3D': ['flip', 'flipX', 'cube', 'fold', 'paperRoll', 'paperRollFront', 'paperUnroll', 'paperUnrollFront'],
-        '回転': ['rotate', 'rotateScale', 'fan', 'windmill', 'flipDoor', 'rotateCorner'],
-        '物理': ['bounce', 'elastic', 'spring', 'throw'],
-        'マスク': ['wipe', 'wipeDown', 'circle', 'diamond', 'blinds', 'blindsV', 'iris', 'clock', 'wave', 'zigzag', 'hexagon', 'spiral'],
-        'フィルター': ['blur', 'pixelate', 'dissolve', 'crossFade', 'flashFade', 'colorShift'],
+        '回転': ['rotate', 'spiral', 'windmill'],
+        '物理': ['bounce', 'elastic', 'swing'],
+        'マスク': ['curtain', 'iris', 'wipe', 'diamond', 'blinds'],
+        'フィルター': ['blur', 'pixelate', 'flash'],
         'スペシャル': ['glitch', 'matrix', 'shatter', 'morph', 'newspaper', 'elementSwap', 'sandfall', 'underwater', 'burn', 'blackhole', 'punch', 'punchCombo'],
-        'IFORCOM': ['iforcom', 'iforcomDot'],
-        '崩壊・物理': ['collapse', 'collapsePhysics', 'iforcomSweep', 'iforcomBounce', 'iforcomChaos']
+        'IFORCOM': ['iforcom', 'iforcomDot', 'iforcomSweep'],
+        '崩壊': ['collapse', 'collapsePhysics']
     };
 
     let isFirst = true;
@@ -156,6 +145,8 @@ function finishAnimation(current, resetProps = {}) {
 
 // 初期化
 document.addEventListener('DOMContentLoaded', () => {
+    // effectRegistryからエフェクトを読み込み
+    initializeEffects();
     // コンテンツを動的に生成
     initializeContent();
     // GSAP初期設定
