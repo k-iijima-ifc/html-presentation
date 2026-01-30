@@ -74,7 +74,7 @@ async function effect_burn(current, next, container) {
     for (let x = 0; x < width; x += burnLineResolution) {
         burnLine.push({
             x: x, y: height,
-            speed: 80 + Math.random() * 60,
+            speed: 400 + Math.random() * 300,
             noise: Math.random() * Math.PI * 2
         });
     }
@@ -158,7 +158,7 @@ async function effect_burn(current, next, container) {
 
     function animate(currentTime) {
         if (!isAnimating) return;
-        phase += 0.1;
+        phase += 0.5;
 
         // 燃焼ラインを更新
         let allBurned = true;
