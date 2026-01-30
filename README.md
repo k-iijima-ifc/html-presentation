@@ -1,5 +1,20 @@
 # 🎬 GSAP iframeエフェクト デモ
 
+> ⚠️ **実験用リポジトリ** - このプロジェクトは技術検証・学習目的で作成されています。本番環境での使用は想定していません。
+
+[![Deploy to GitHub Pages](https://github.com/k-iijima-ifc/html-presentation/actions/workflows/deploy.yml/badge.svg)](https://github.com/k-iijima-ifc/html-presentation/actions/workflows/deploy.yml)
+
+## 🌐 デモページ
+
+**👉 [デモを見る](https://k-iijima-ifc.github.io/html-presentation/iframe-gsap-demo-modular.html)**
+
+| バージョン | リンク |
+|-----------|--------|
+| グループ版 | [iframe-gsap-demo-modular.html](https://k-iijima-ifc.github.io/html-presentation/iframe-gsap-demo-modular.html) |
+| 個別ファイル版 | [iframe-gsap-demo-individual.html](https://k-iijima-ifc.github.io/html-presentation/iframe-gsap-demo-individual.html) |
+
+---
+
 iframeコンテンツの切り替え時に様々なアニメーションエフェクトを適用できるデモアプリケーションです。
 
 ## ✨ 特徴
@@ -9,59 +24,44 @@ iframeコンテンツの切り替え時に様々なアニメーションエフ�
 - **設定ファイル対応** - `iframe-config.js` でコンテンツを簡単に管理
 - **レスポンシブ対応** - 様々な画面サイズに対応
 
-## 🚀 デモ
+## 🚀 ローカルでの実行
 
-1. `iframe-gsap-demo-modular.html` をブラウザで開く
-2. 右サイドバーからエフェクトを選択
-3. 上部のタブでページを切り替えてエフェクトを確認
+1. リポジトリをクローン
+2. `iframe-gsap-demo-modular.html` をブラウザで開く
+3. 右サイドバーからエフェクトを選択
+4. 上部のタブでページを切り替えてエフェクトを確認
 
 ## 📁 プロジェクト構成
 
 ```
-├── iframe-gsap-demo-modular.html     # メインHTML（グループ別ファイル版）
-├── iframe-gsap-demo-individual.html  # メインHTML（個別ファイル版）⭐ NEW
-├── iframe-config.js                  # コンテンツ設定
+├── iframe-gsap-demo-modular.html  # メインHTML
+├── iframe-config.js               # コンテンツ設定
 ├── css/
-│   ├── main.css                      # メインスタイル
-│   └── effects/                      # エフェクト専用CSS
+│   ├── main.css                   # メインスタイル
+│   └── effects/                   # エフェクト専用CSS
 │       ├── collapse.css
 │       ├── glitch.css
 │       └── iforcom.css
 ├── js/
-│   ├── main.js                       # メインロジック（グループ版）
-│   ├── main-individual.js            # メインロジック（個別版）
-│   └── effects/
-│       ├── 3d.js                     # 3D系エフェクト（グループ版）
-│       ├── basic.js                  # 基本エフェクト（グループ版）
-│       ├── ...                       # その他グループ版ファイル
-│       └── individual/               # ⭐ 個別エフェクトファイル
-│           ├── index.js              # エフェクト統合
-│           ├── fade.js               # フェード
-│           ├── slide.js              # スライド
-│           ├── flip.js               # フリップ
-│           ├── glitch.js             # グリッチ
-│           └── ...                   # 各エフェクト1ファイル
-└── samples/                          # サンプルページ
+│   ├── main.js                    # メインロジック
+│   └── effects/                   # エフェクトファイル
+│       ├── 3d.js                  # 3D系（フリップ、キューブ、巻き取り等）
+│       ├── basic.js               # 基本（フェード、スライド、ズーム）
+│       ├── collapse.js            # 崩壊系（物理演算）
+│       ├── filter.js              # フィルター（ブラー、ピクセル）
+│       ├── iforcom.js             # IFORCOM専用
+│       ├── mask.js                # マスク（ワイプ、アイリス）
+│       ├── physics.js             # 物理（バウンス、エラスティック）
+│       ├── rotate.js              # 回転系
+│       └── special.js             # 特殊（グリッチ、深海、燃焼等）
+└── samples/                       # サンプルページ
     ├── page1-news.html
     ├── page2-dashboard.html
     ├── page3-shop.html
     └── page4-sns.html
 ```
 
-## 📂 ファイル構成の選択
-
-### グループ別ファイル版（従来）
-- `iframe-gsap-demo-modular.html` を使用
-- エフェクトがカテゴリごとにまとまっている
-- ファイル数が少なくシンプル
-
-### 個別ファイル版（新規）⭐
-- `iframe-gsap-demo-individual.html` を使用
-- 1エフェクト = 1ファイル
-- エフェクトの追加・削除・編集が容易
-- 他プロジェクトへのコピーが簡単
-
-## 🎨 エフェクト一覧
+## 🎨 エフェクト一覧（全50種類以上）
 
 ### 基本エフェクト
 - フェード / クロスフェード
