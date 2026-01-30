@@ -34,27 +34,36 @@ iframeコンテンツの切り替え時に様々なアニメーションエフ�
 ## 📁 プロジェクト構成
 
 ```
-├── iframe-gsap-demo-modular.html  # メインHTML
-├── iframe-config.js               # コンテンツ設定
+├── iframe-gsap-demo-modular.html    # メインHTML（グループ版）
+├── iframe-gsap-demo-individual.html # メインHTML（個別版）
+├── iframe-config.js                 # コンテンツ設定
 ├── css/
-│   ├── main.css                   # メインスタイル
-│   └── effects/                   # エフェクト専用CSS
+│   ├── main.css                     # メインスタイル
+│   └── effects/                     # エフェクト専用CSS
 │       ├── collapse.css
 │       ├── glitch.css
 │       └── iforcom.css
 ├── js/
-│   ├── main.js                    # メインロジック
-│   └── effects/                   # エフェクトファイル
-│       ├── 3d.js                  # 3D系（フリップ、キューブ、巻き取り等）
-│       ├── basic.js               # 基本（フェード、スライド、ズーム）
-│       ├── collapse.js            # 崩壊系（物理演算）
-│       ├── filter.js              # フィルター（ブラー、ピクセル）
-│       ├── iforcom.js             # IFORCOM専用
-│       ├── mask.js                # マスク（ワイプ、アイリス）
-│       ├── physics.js             # 物理（バウンス、エラスティック）
-│       ├── rotate.js              # 回転系
-│       └── special.js             # 特殊（グリッチ、深海、燃焼等）
-└── samples/                       # サンプルページ
+│   ├── main.js                      # メインロジック（グループ版）
+│   ├── main-individual.js           # メインロジック（個別版）
+│   └── effects/
+│       ├── 3d.js                    # 3D系（グループ版）
+│       ├── basic.js                 # 基本系（グループ版）
+│       ├── collapse.js              # 崩壊系（グループ版）
+│       ├── filter.js                # フィルター系（グループ版）
+│       ├── iforcom.js               # IFORCOM専用（グループ版）
+│       ├── mask.js                  # マスク系（グループ版）
+│       ├── physics.js               # 物理系（グループ版）
+│       ├── rotate.js                # 回転系（グループ版）
+│       ├── special.js               # 特殊系（グループ版）
+│       └── individual/              # 📂 個別エフェクトファイル
+│           ├── index.js             # エフェクトレジストリ
+│           ├── fade.js              # フェード
+│           ├── slide.js             # スライド
+│           ├── blur.js              # ブラー
+│           ├── glitch.js            # グリッチ
+│           └── ...                  # その他35個以上
+└── samples/                         # サンプルページ
     ├── page1-news.html
     ├── page2-dashboard.html
     ├── page3-shop.html

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="googlebot" content="noindex, nofollow, noarchive">
+    <title>GSAP iframe エフェクト デモ（個別版）</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/effects/iforcom.css">
+    <link rel="stylesheet" href="css/effects/collapse.css">
+    <link rel="stylesheet" href="css/effects/glitch.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎬 GSAP iframeエフェクト デモ（個別版）</h1>
+            <p class="subtitle">各エフェクトが個別ファイルに分離されたモジュラー版</p>
+            <a href="iframe-gsap-demo-modular.html" class="version-link">📦 グループ版はこちら</a>
+        </div>
+
+        <div class="controls">
+            <div class="effect-selector">
+                <label for="effectSelect">エフェクト選択:</label>
+                <select id="effectSelect"></select>
+            </div>
+            <div class="button-group">
+                <button id="prevBtn" class="btn">◀ 前へ</button>
+                <button id="nextBtn" class="btn btn-primary">次へ ▶</button>
+            </div>
+        </div>
+
+        <div class="iframe-container" id="iframeContainer">
+            <div id="blocksContainer" class="blocks-container"></div>
+            
+            <!-- IFORCOM用オーバーレイ -->
+            <div id="iforcomOverlay" class="iforcom-overlay">
+                <span id="iforcomText" class="iforcom-text">IFORCOM</span>
+            </div>
+            <div id="iforcomIdotOverlay" class="iforcom-idot-overlay">
+                <span id="iforcomIdotText" class="iforcom-idot-text">
+                    <span id="iDot" class="i-dot"></span>FORCOM
+                </span>
+                <div id="idotNextPreview" class="idot-next-preview"></div>
+            </div>
+            
+            <div class="iframe-wrapper active" id="page0">
+                <iframe src="samples/page1-news.html" frameborder="0"></iframe>
+            </div>
+            <div class="iframe-wrapper hidden" id="page1">
+                <iframe src="samples/page2-dashboard.html" frameborder="0"></iframe>
+            </div>
+            <div class="iframe-wrapper hidden" id="page2">
+                <iframe src="samples/page3-shop.html" frameborder="0"></iframe>
+            </div>
+            <div class="iframe-wrapper hidden" id="page3">
+                <iframe src="samples/page4-sns.html" frameborder="0"></iframe>
+            </div>
+        </div>
+
+        <div class="page-indicator">
+            <span class="page-dot active" data-page="0"></span>
+            <span class="page-dot" data-page="1"></span>
+            <span class="page-dot" data-page="2"></span>
+            <span class="page-dot" data-page="3"></span>
+        </div>
+        
+        <div class="info">
+            <p>💡 各エフェクトは <code>js/effects/individual/</code> に個別ファイルとして格納されています</p>
+        </div>
+    </div>
+
+    <!-- 外部ライブラリ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- エフェクトレジストリ（最初に読み込む） -->
+    <script src="js/effects/individual/index.js"></script>
+    
+    <!-- 個別エフェクトファイル - Basic -->
+    <script src="js/effects/individual/fade.js"></script>
+    <script src="js/effects/individual/slide.js"></script>
+    <script src="js/effects/individual/slideUp.js"></script>
+    <script src="js/effects/individual/zoom.js"></script>
+    <script src="js/effects/individual/zoomOut.js"></script>
+    
+    <!-- 個別エフェクトファイル - 3D -->
+    <script src="js/effects/individual/flip.js"></script>
+    <script src="js/effects/individual/flipX.js"></script>
+    <script src="js/effects/individual/cube.js"></script>
+    <script src="js/effects/individual/fold.js"></script>
+    
+    <!-- 個別エフェクトファイル - Rotate -->
+    <script src="js/effects/individual/rotate.js"></script>
+    <script src="js/effects/individual/spiral.js"></script>
+    <script src="js/effects/individual/windmill.js"></script>
+    
+    <!-- 個別エフェクトファイル - Physics -->
+    <script src="js/effects/individual/bounce.js"></script>
+    <script src="js/effects/individual/elastic.js"></script>
+    <script src="js/effects/individual/swing.js"></script>
+    
+    <!-- 個別エフェクトファイル - Mask -->
+    <script src="js/effects/individual/curtain.js"></script>
+    <script src="js/effects/individual/iris.js"></script>
+    <script src="js/effects/individual/wipe.js"></script>
+    <script src="js/effects/individual/diamond.js"></script>
+    <script src="js/effects/individual/blinds.js"></script>
+    
+    <!-- 個別エフェクトファイル - Filter -->
+    <script src="js/effects/individual/blur.js"></script>
+    <script src="js/effects/individual/pixelate.js"></script>
+    <script src="js/effects/individual/flash.js"></script>
+    
+    <!-- 個別エフェクトファイル - Special -->
+    <script src="js/effects/individual/glitch.js"></script>
+    <script src="js/effects/individual/matrix.js"></script>
+    <script src="js/effects/individual/shatter.js"></script>
+    <script src="js/effects/individual/morph.js"></script>
+    <script src="js/effects/individual/newspaper.js"></script>
+    <script src="js/effects/individual/elementSwap.js"></script>
+    <script src="js/effects/individual/sandfall.js"></script>
+    <script src="js/effects/individual/punch.js"></script>
+    <script src="js/effects/individual/punchCombo.js"></script>
+    <script src="js/effects/individual/blackhole.js"></script>
+    <script src="js/effects/individual/burn.js"></script>
+    
+    <!-- メインスクリプト（個別版用） -->
+    <script src="js/main-individual.js"></script>
+</body>
+</html>
