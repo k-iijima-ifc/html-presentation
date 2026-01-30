@@ -65,7 +65,7 @@ function initializeContent() {
         'マスク': ['curtain', 'iris', 'wipe', 'diamond', 'blinds'],
         'フィルター': ['blur', 'pixelate', 'flash'],
         'スペシャル': ['glitch', 'matrix', 'shatter', 'morph', 'newspaper', 'elementSwap', 'sandfall', 'underwater', 'burn', 'blackhole', 'punch', 'punchCombo'],
-        'IFORCOM': ['iforcom', 'iforcomDot', 'iforcomSweep'],
+        'IFORCOM': ['iforcom', 'iforcomDot', 'iforcomSweep', 'iforcomChain'],
         '崩壊': ['collapse', 'collapsePhysics']
     };
 
