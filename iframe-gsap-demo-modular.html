@@ -7,22 +7,29 @@
     <meta name="googlebot" content="noindex, nofollow">
     <title>GSAP+ iframeエフェクト切り替えデモ</title>
     
-    <!-- GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <!-- html2canvas (スクリーンキャプチャ用) -->
+    <!-- ES Modules importmap (Three.js r180, PixiJS 8.13.2) -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+            "pixi.js": "https://cdn.jsdelivr.net/npm/pixi.js@8.13.2/dist/pixi.min.mjs"
+        }
+    }
+    </script>
+    
+    <!-- GSAP 3.13.0 (2026-02 最新) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    <!-- html2canvas 1.4.1 (2026-02 最新) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <!-- Matter.js (物理エンジン) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
-    <!-- Three.js (3Dエンジン) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- PixiJS (WebGL/2D) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.3.2/pixi.min.js"></script>
+    <!-- Matter.js 0.20.0 (2026-02 最新) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>
     
     <!-- CSS -->
-    <link rel="stylesheet" href="css/main.css?v=20260130">
-    <link rel="stylesheet" href="css/effects/glitch.css?v=20260130">
-    <link rel="stylesheet" href="css/effects/iforcom.css?v=20260130">
-    <link rel="stylesheet" href="css/effects/collapse.css?v=20260130">
+    <link rel="stylesheet" href="css/main.css?v=20260205">
+    <link rel="stylesheet" href="css/effects/glitch.css?v=20260205">
+    <link rel="stylesheet" href="css/effects/iforcom.css?v=20260205">
+    <link rel="stylesheet" href="css/effects/collapse.css?v=20260205">
 </head>
 <body>
     <div class="two-pane-layout">
@@ -71,77 +78,79 @@
     </div>
 
     <!-- 設定 -->
-    <script src="iframe-config.js?v=20260130"></script>
+    <script src="iframe-config.js?v=20260205"></script>
     
     <!-- エフェクトレジストリ -->
-    <script src="js/effects/index.js?v=20260130"></script>
+    <script src="js/effects/index.js?v=20260205"></script>
     
     <!-- 基本エフェクト -->
-    <script src="js/effects/basic/fade.js?v=20260130"></script>
-    <script src="js/effects/basic/slide.js?v=20260130"></script>
-    <script src="js/effects/basic/slideUp.js?v=20260130"></script>
-    <script src="js/effects/basic/zoom.js?v=20260130"></script>
-    <script src="js/effects/basic/zoomOut.js?v=20260130"></script>
+    <script src="js/effects/basic/fade.js?v=20260205"></script>
+    <script src="js/effects/basic/slide.js?v=20260205"></script>
+    <script src="js/effects/basic/slideUp.js?v=20260205"></script>
+    <script src="js/effects/basic/zoom.js?v=20260205"></script>
+    <script src="js/effects/basic/zoomOut.js?v=20260205"></script>
     
     <!-- 3Dエフェクト -->
-    <script src="js/effects/3d/flip.js?v=20260130"></script>
-    <script src="js/effects/3d/flipX.js?v=20260130"></script>
-    <script src="js/effects/3d/cube.js?v=20260130"></script>
-    <script src="js/effects/3d/fold.js?v=20260130"></script>
-    <script src="js/effects/3d/paperRoll.js?v=20260130"></script>
-    <script src="js/effects/3d/paperRollFront.js?v=20260130"></script>
+    <script src="js/effects/3d/flip.js?v=20260205"></script>
+    <script src="js/effects/3d/flipX.js?v=20260205"></script>
+    <script src="js/effects/3d/cube.js?v=20260205"></script>
+    <script src="js/effects/3d/fold.js?v=20260205"></script>
+    <!-- Three.js ES Modules -->
+    <script type="module" src="js/effects/3d/paperRoll.js?v=20260205"></script>
+    <script type="module" src="js/effects/3d/paperRollFront.js?v=20260205"></script>
     
     <!-- 回転エフェクト -->
-    <script src="js/effects/rotate/rotate.js?v=20260130"></script>
-    <script src="js/effects/rotate/spiral.js?v=20260130"></script>
-    <script src="js/effects/rotate/windmill.js?v=20260130"></script>
+    <script src="js/effects/rotate/rotate.js?v=20260205"></script>
+    <script src="js/effects/rotate/spiral.js?v=20260205"></script>
+    <script src="js/effects/rotate/windmill.js?v=20260205"></script>
     
     <!-- 物理エフェクト -->
-    <script src="js/effects/physics/bounce.js?v=20260130"></script>
-    <script src="js/effects/physics/elastic.js?v=20260130"></script>
-    <script src="js/effects/physics/swing.js?v=20260130"></script>
+    <script src="js/effects/physics/bounce.js?v=20260205"></script>
+    <script src="js/effects/physics/elastic.js?v=20260205"></script>
+    <script src="js/effects/physics/swing.js?v=20260205"></script>
     
     <!-- マスクエフェクト -->
-    <script src="js/effects/mask/curtain.js?v=20260130"></script>
-    <script src="js/effects/mask/iris.js?v=20260130"></script>
-    <script src="js/effects/mask/wipe.js?v=20260130"></script>
-    <script src="js/effects/mask/diamond.js?v=20260130"></script>
-    <script src="js/effects/mask/blinds.js?v=20260130"></script>
+    <script src="js/effects/mask/curtain.js?v=20260205"></script>
+    <script src="js/effects/mask/iris.js?v=20260205"></script>
+    <script src="js/effects/mask/wipe.js?v=20260205"></script>
+    <script src="js/effects/mask/diamond.js?v=20260205"></script>
+    <script src="js/effects/mask/blinds.js?v=20260205"></script>
     
     <!-- フィルターエフェクト -->
-    <script src="js/effects/filter/blur.js?v=20260130"></script>
-    <script src="js/effects/filter/pixelate.js?v=20260130"></script>
-    <script src="js/effects/filter/flash.js?v=20260130"></script>
+    <script src="js/effects/filter/blur.js?v=20260205"></script>
+    <script src="js/effects/filter/pixelate.js?v=20260205"></script>
+    <script src="js/effects/filter/flash.js?v=20260205"></script>
     
     <!-- スペシャルエフェクト -->
-    <script src="js/effects/special/glitch.js?v=20260130"></script>
-    <script src="js/effects/special/matrix.js?v=20260130"></script>
-    <script src="js/effects/special/shatter.js?v=20260130"></script>
-    <script src="js/effects/special/morph.js?v=20260130"></script>
-    <script src="js/effects/special/newspaper.js?v=20260130"></script>
-    <script src="js/effects/special/elementSwap.js?v=20260130"></script>
-    <script src="js/effects/special/sandfall.js?v=20260130"></script>
-    <script src="js/effects/special/underwater.js?v=20260130"></script>
-    <script src="js/effects/special/burn.js?v=20260130"></script>
-    <script src="js/effects/special/blackhole.js?v=20260130"></script>
-    <script src="js/effects/special/rainRipple.js?v=20260130"></script>
-    <script src="js/effects/special/snow.js?v=20260204b"></script>
-    <script src="js/effects/special/sprite1.js?v=20260204"></script>
-    <script src="js/effects/special/sprite2.js?v=20260204"></script>
-    <script src="js/effects/special/punch.js?v=20260130"></script>
-    <script src="js/effects/special/punchCombo.js?v=20260130"></script>
+    <script src="js/effects/special/glitch.js?v=20260205"></script>
+    <script src="js/effects/special/matrix.js?v=20260205"></script>
+    <script src="js/effects/special/shatter.js?v=20260205"></script>
+    <script src="js/effects/special/morph.js?v=20260205"></script>
+    <script src="js/effects/special/newspaper.js?v=20260205"></script>
+    <script src="js/effects/special/elementSwap.js?v=20260205"></script>
+    <script src="js/effects/special/sandfall.js?v=20260205"></script>
+    <script src="js/effects/special/underwater.js?v=20260205"></script>
+    <script src="js/effects/special/burn.js?v=20260205"></script>
+    <script src="js/effects/special/blackhole.js?v=20260205"></script>
+    <!-- PixiJS 8.x ES Modules -->
+    <script type="module" src="js/effects/special/rainRipple.js?v=20260205"></script>
+    <script src="js/effects/special/snow.js?v=20260205"></script>
+    <script src="js/effects/special/sprite1.js?v=20260205"></script>
+    <script src="js/effects/special/sprite2.js?v=20260205"></script>
+    <script src="js/effects/special/punch.js?v=20260205"></script>
+    <script src="js/effects/special/punchCombo.js?v=20260205"></script>
     
     <!-- IFORCOMエフェクト -->
-    <script src="js/effects/iforcom/iforcom.js?v=20260130"></script>
-    <script src="js/effects/iforcom/iforcomDot.js?v=20260130"></script>
-    <script src="js/effects/iforcom/iforcomSweep.js?v=20260130"></script>
-    <script src="js/effects/iforcom/iforcomChain.js?v=20260130"></script>
+    <script src="js/effects/iforcom/iforcom.js?v=20260205"></script>
+    <script src="js/effects/iforcom/iforcomDot.js?v=20260205"></script>
+    <script src="js/effects/iforcom/iforcomSweep.js?v=20260205"></script>
+    <script src="js/effects/iforcom/iforcomChain.js?v=20260205"></script>
     
     <!-- 崩壊エフェクト -->
-    <script src="js/effects/collapse/collapse.js?v=20260130"></script>
-    <script src="js/effects/collapse/collapsePhysics.js?v=20260130"></script>
+    <script src="js/effects/collapse/collapse.js?v=20260205"></script>
+    <script src="js/effects/collapse/collapsePhysics.js?v=20260205"></script>
     
     <!-- メイン -->
-    <script src="js/main.js?v=20260130"></script>
+    <script src="js/main.js?v=20260205"></script>
 </body>
 </html>

@@ -15,6 +15,26 @@ let effectDefinitions = {}; // エフェクト定義（名前・カテゴリ）
 let effects = {};          // エフェクト関数マップ
 
 /**
+ * ES Modulesエフェクトの読み込みを待機
+ * ES Modulesは非同期で読み込まれるため、window.effect_xxx が定義されるまで待つ
+ */
+async function waitForESModuleEffects() {
+    const esModuleEffects = ['effect_paperRoll', 'effect_paperRollFront', 'effect_rainRipple'];
+    const maxWait = 5000; // 最大5秒待機
+    const startTime = Date.now();
+    
+    while (Date.now() - startTime < maxWait) {
+        const allLoaded = esModuleEffects.every(name => typeof window[name] === 'function');
+        if (allLoaded) return true;
+        await new Promise(resolve => setTimeout(resolve, 50));
+    }
+    
+    // タイムアウト時は利用可能なものだけで続行
+    console.warn('Some ES Module effects did not load in time');
+    return false;
+}
+
+/**
  * effectRegistryからエフェクト情報を読み込み
  */
 function initializeEffects() {
@@ -169,7 +189,9 @@ function finishAnimation(current, resetProps = {}) {
 }
 
 // 初期化
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // ES Modulesエフェクトの読み込みを待機
+    await waitForESModuleEffects();
     // effectRegistryからエフェクトを読み込み
     initializeEffects();
     // コンテンツを動的に生成

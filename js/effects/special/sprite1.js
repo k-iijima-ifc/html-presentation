@@ -44,11 +44,9 @@ async function effect_sprite1(current, next, container) {
             SPRITE.frameWidth = spriteSheet.width / SPRITE.cols;
             SPRITE.frameHeight = spriteSheet.height / SPRITE.rows;
             SPRITE.ready = true;
-            console.log('Sprite loaded:', SPRITE.frameWidth, 'x', SPRITE.frameHeight, 'frames:', SPRITE.totalFrames);
             resolve();
         };
         spriteSheet.onerror = () => {
-            console.error('Failed to load sprite');
             resolve();
         };
     });

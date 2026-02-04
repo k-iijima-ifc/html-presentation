@@ -1,7 +1,9 @@
 /**
- * 紙巻き取りエフェクト（奥方向）
+ * 紙巻き取りエフェクト（奥方向） - Three.js ES Modules対応版
  * Three.jsで本格的な巻き取り
  */
+import * as THREE from 'three';
+
 async function effect_paperRoll(current, next, container) {
     const blocksContainer = document.getElementById('blocksContainer');
     blocksContainer.innerHTML = '';
@@ -121,7 +123,9 @@ async function effect_paperRoll(current, next, container) {
                     blocksContainer.innerHTML = '';
                     blocksContainer.style.opacity = '1';
                     gsap.set(current, { opacity: 1 });
-                    finishAnimation(current);
+                    if (typeof finishAnimation === 'function') {
+                        finishAnimation(current);
+                    }
                 }
             });
         }
@@ -129,6 +133,9 @@ async function effect_paperRoll(current, next, container) {
 
     requestAnimationFrame(animate);
 }
+
+// ES Modules: グローバルにエクスポート＆登録
+window.effect_paperRoll = effect_paperRoll;
 
 if (typeof effectRegistry !== 'undefined') {
     effectRegistry.register('paperRoll', effect_paperRoll, { name: '巻き取り(奥)', category: '3d' });

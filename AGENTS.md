@@ -145,12 +145,17 @@ docker compose run --rm sprite-generator python sprite_generator.py full \
 
 ## 開発サーバー起動
 
+詳細は [README.md](README.md#ローカル開発サーバー) を参照。
+
 ```bash
-cd /path/to/htmlプレゼンテーション
+# 推奨: Docker
+docker compose up
+
+# または Python
 python -m http.server 8080
 ```
 
-http://localhost:8080 でアクセス
+→ http://localhost:8080 でアクセス
 
 ## 注意事項
 
@@ -159,3 +164,36 @@ http://localhost:8080 でアクセス
 3. **`blocksContainer`は使用後に`innerHTML = ''`でクリア**
 4. **scriptタグのバージョンパラメータ（`?v=YYYYMMDD`）を更新してキャッシュ対策**
 5. **HTMLファイルのscriptタグの順序は依存関係を考慮**（index.js → 各エフェクト → main.js）
+6. **Three.js/PixiJSを使用する場合はES Modules**（下記参照）
+
+## ES Modulesエフェクト（Three.js/PixiJS使用時）
+
+Three.js（r160以降）とPixiJS（8.x以降）はES Modules専用のため、以下の形式で作成：
+
+```javascript
+// ES Modulesインポート
+import * as THREE from 'three';
+// または
+import { Application, Sprite, Texture, Filter, GlProgram, Graphics } from 'pixi.js';
+
+async function effect_エフェクト名(current, next, container) {
+    // 実装
+}
+
+// グローバルにエクスポート（effectRegistryから呼び出すため）
+window.effect_エフェクト名 = effect_エフェクト名;
+
+// エフェクト登録
+if (typeof effectRegistry !== 'undefined') {
+    effectRegistry.register('エフェクトID', effect_エフェクト名, { ... });
+}
+```
+
+HTMLでは `type="module"` を指定：
+```html
+<script type="module" src="js/effects/3d/paperRoll.js?v=20260205"></script>
+```
+
+**現在ES Modulesを使用しているエフェクト:**
+- `paperRoll.js` / `paperRollFront.js` (Three.js r180)
+- `rainRipple.js` (PixiJS 8.13.2)

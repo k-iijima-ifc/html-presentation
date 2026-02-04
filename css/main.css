@@ -302,6 +302,12 @@ body {
     background: #fffbeb;
 }
 
+.effect-group-header[data-group="sprite"] {
+    color: #7c3aed;
+    border-color: #c4b5fd;
+    background: #f5f3ff;
+}
+
 .effect-group-header:hover {
     opacity: 0.9;
 }
@@ -380,6 +386,13 @@ body {
     color: #b45309;
     transform: translateY(-1px) scale(1.03);
     animation: btn-glow 0.4s ease;
+}
+
+.effect-group[data-group="sprite"] .btn.effect-btn:hover {
+    border-color: #a78bfa;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+    color: #7c3aed;
+    transform: translateY(-1px) scale(1.03);
 }
 
 @keyframes btn-bounce {

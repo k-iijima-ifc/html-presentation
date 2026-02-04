@@ -1,9 +1,10 @@
 ﻿#  画面遷移エフェクト デモ
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen?logo=github)](https://k-iijima-ifc.github.io/html-presentation/iframe-gsap-demo-modular.html)
-[![GSAP](https://img.shields.io/badge/GSAP-3.12.5-88CE02?logo=greensock)](https://greensock.com/gsap/)
-[![Three.js](https://img.shields.io/badge/Three.js-r128-000000?logo=three.js)](https://threejs.org/)
-[![Matter.js](https://img.shields.io/badge/Matter.js-0.19.0-4B5562)](https://brm.io/matter-js/)
+[![GSAP](https://img.shields.io/badge/GSAP-3.13.0-88CE02?logo=greensock)](https://greensock.com/gsap/)
+[![Three.js](https://img.shields.io/badge/Three.js-r180-000000?logo=three.js)](https://threejs.org/)
+[![Matter.js](https://img.shields.io/badge/Matter.js-0.20.0-4B5562)](https://brm.io/matter-js/)
+[![PixiJS](https://img.shields.io/badge/PixiJS-8.13.2-e91e63?logo=webgl)](https://pixijs.com/)
 
 ⚠️ **実験用リポジトリ** - 技術検証・学習目的
 
@@ -14,9 +15,51 @@ https://k-iijima-ifc.github.io/html-presentation/iframe-gsap-demo-modular.html
 ## 使い方
 
 1. リポジトリをクローン
-2. `iframe-gsap-demo-modular.html` をブラウザで開く
-3. 右サイドバーからエフェクトを選択
-4. 上部タブでページを切り替え
+2. ローカルサーバーを起動（下記参照）
+3. ブラウザで http://localhost:8080 を開く
+4. 右サイドバーからエフェクトを選択
+5. 上部タブでページを切り替え
+
+## ローカル開発サーバー
+
+⚠️ `file://` プロトコルではCORS制限によりエフェクトが正常に動作しません。以下のいずれかの方法でローカルサーバーを起動してください。
+
+### 🐳 Docker（推奨・どの環境でも動作）
+
+```bash
+docker compose up
+```
+→ http://localhost:8080 でアクセス
+
+停止: `Ctrl+C` または `docker compose down`
+
+### 🐍 Python（インストール済みの場合）
+
+```bash
+# Python 3
+python -m http.server 8080
+
+# Python 2
+python -m SimpleHTTPServer 8080
+```
+→ http://localhost:8080 でアクセス
+
+### 📦 Node.js（インストール済みの場合）
+
+```bash
+# npxを使用（インストール不要）
+npx serve -p 8080
+
+# または http-server をグローバルインストール
+npm install -g http-server
+http-server -p 8080
+```
+→ http://localhost:8080 でアクセス
+
+### 💻 VS Code 拡張機能
+
+1. [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) 拡張機能をインストール
+2. `iframe-gsap-demo-modular.html` を右クリック → "Open with Live Server"
 
 ## エフェクトの追加方法
 
@@ -137,7 +180,16 @@ const groupKeyMap = {
 
 ## 使用ライブラリ
 
-- GSAP 3.12.5
-- html2canvas 1.4.1
-- Matter.js 0.19.0
-- Three.js r128
+| ライブラリ | バージョン | 用途 | ロード方式 | ライセンス |
+|-----------|-----------|------|-----------|------|
+| [GSAP](https://greensock.com/gsap/) | 3.13.0 | アニメーションエンジン | CDN script | GreenSock |
+| [html2canvas](https://html2canvas.hertzen.com/) | 1.4.1 | スクリーンキャプチャ | CDN script | MIT |
+| [Matter.js](https://brm.io/matter-js/) | 0.20.0 | 物理エンジン | CDN script | MIT |
+| [Three.js](https://threejs.org/) | r180 | 3Dエンジン | ES Modules (importmap) | MIT |
+| [PixiJS](https://pixijs.com/) | 8.13.2 | WebGL/2D描画 | ES Modules (importmap) | MIT |
+
+> **ℹ️ ES Modules**: Three.jsとPixiJSは最新版でES Modules必須のため、`importmap`経由で読み込み
+
+## ライセンス
+
+MIT License - 詳細は [LICENSE](LICENSE) を参照

@@ -1,0 +1,46 @@
+# OS生成ファイル
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# IDE・エディタ
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 環境変数
+.env
+.env.local
+.env.*.local
+
+# ログ
+*.log
+npm-debug.log*
+
+# 一時ファイル
+*.tmp
+*.temp
+.cache/
+
+# Node.js（将来的に使用する場合）
+node_modules/
+package-lock.json
+
+# Python（tools用）
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+
+# Docker
+docker-compose.override.yml

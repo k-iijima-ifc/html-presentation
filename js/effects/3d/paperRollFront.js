@@ -1,7 +1,9 @@
 /**
- * 紙巻き取りエフェクト（手前方向）
+ * 紙巻き取りエフェクト（手前方向） - Three.js ES Modules対応版
  * Three.jsで手前に向かって巻く
  */
+import * as THREE from 'three';
+
 async function effect_paperRollFront(current, next, container) {
     const blocksContainer = document.getElementById('blocksContainer');
     blocksContainer.innerHTML = '';
@@ -122,7 +124,9 @@ async function effect_paperRollFront(current, next, container) {
                     blocksContainer.innerHTML = '';
                     blocksContainer.style.opacity = '1';
                     gsap.set(current, { opacity: 1 });
-                    finishAnimation(current);
+                    if (typeof finishAnimation === 'function') {
+                        finishAnimation(current);
+                    }
                 }
             });
         }
@@ -130,6 +134,9 @@ async function effect_paperRollFront(current, next, container) {
 
     requestAnimationFrame(animate);
 }
+
+// ES Modules: グローバルにエクスポート＆登録
+window.effect_paperRollFront = effect_paperRollFront;
 
 if (typeof effectRegistry !== 'undefined') {
     effectRegistry.register('paperRollFront', effect_paperRollFront, { name: '巻き取り(手前)', category: '3d' });

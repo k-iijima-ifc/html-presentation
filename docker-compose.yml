@@ -1,0 +1,13 @@
+# ローカル開発サーバー（簡易Webサーバー）
+# 起動: docker compose up
+# 停止: docker compose down または Ctrl+C
+# アクセス: http://localhost:8080
+
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/usr/share/nginx/html:ro
+    restart: unless-stopped
