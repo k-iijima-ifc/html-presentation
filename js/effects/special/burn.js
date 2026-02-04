@@ -15,13 +15,12 @@ async function effect_burn(current, next, container) {
     let capturedImage = null;
 
     try {
-        const iframeDoc = currentIframe.contentDocument || currentIframe.contentWindow.document;
-        if (iframeDoc && iframeDoc.body) {
-            capturedImage = await html2canvas(iframeDoc.documentElement, {
-                width, height, scale: 1, useCORS: true, allowTaint: true, backgroundColor: '#ffffff', logging: false
-            });
+        if (typeof window.captureIframeCanvas === 'function') {
+            capturedImage = await window.captureIframeCanvas(currentIframe, width, height);
         }
-    } catch (e) {
+    } catch (e) {}
+
+    if (!capturedImage) {
         const canvas = document.createElement('canvas');
         canvas.width = width;
         canvas.height = height;
@@ -300,5 +299,5 @@ async function effect_burn(current, next, container) {
 }
 
 if (typeof effectRegistry !== 'undefined') {
-    effectRegistry.register('burn', effect_burn, { name: '🔥燃焼', category: 'special' });
+    effectRegistry.register('burn', effect_burn, { name: '燃焼', category: 'special' });
 }

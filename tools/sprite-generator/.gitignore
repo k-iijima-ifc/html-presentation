@@ -1,0 +1,19 @@
+# 環境変数
+.env
+
+# 出力ディレクトリ
+output/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

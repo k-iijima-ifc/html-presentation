@@ -1,8 +1,6 @@
 // パンチで画面が割れるエフェクト
 // 拳が飛んできてガラスを割るような演出
 
-import { effectRegistry } from '../index.js';
-
 const punch = async (current, next, container) => {
     const blocksContainer = document.getElementById('blocksContainer');
     blocksContainer.innerHTML = '';
@@ -16,29 +14,30 @@ const punch = async (current, next, container) => {
     // 現在のページをキャプチャ
     const currentIframe = current.querySelector('iframe');
     let currentImage = null;
+    let captureFailed = false;
     
     try {
-        const iframeDoc = currentIframe.contentDocument || currentIframe.contentWindow.document;
-        if (iframeDoc && iframeDoc.body) {
-            const canvas = await html2canvas(iframeDoc.documentElement, {
-                width: width,
-                height: height,
-                scale: 1,
-                useCORS: true,
-                allowTaint: true,
-                backgroundColor: '#ffffff',
-                logging: false
-            });
-            currentImage = canvas;
+        if (typeof window.captureIframeCanvas === 'function') {
+            currentImage = await window.captureIframeCanvas(currentIframe, width, height);
         }
+        if (!currentImage) captureFailed = true;
     } catch (e) {
-        const canvas = document.createElement('canvas');
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext('2d');
-        ctx.fillStyle = '#667eea';
-        ctx.fillRect(0, 0, width, height);
-        currentImage = canvas;
+        captureFailed = true;
+    }
+
+    if (!currentImage || captureFailed) {
+        next.classList.remove('hidden');
+        gsap.set(next, { opacity: 0 });
+        gsap.set(current, { opacity: 1 });
+        gsap.timeline()
+            .to(current, { opacity: 0, duration: 0.4, ease: 'power2.inOut' })
+            .to(next, { opacity: 1, duration: 0.4, ease: 'power2.inOut', onComplete: () => {
+                blocksContainer.innerHTML = '';
+                if (typeof finishAnimation === 'function') {
+                    finishAnimation(current);
+                }
+            } }, '-=0.2');
+        return;
     }
 
     next.classList.remove('hidden');
@@ -195,7 +194,7 @@ const punch = async (current, next, container) => {
 
     // 手（拳）の画像を読み込む
     const fistImage = new Image();
-    fistImage.src = 'js/effects/hand.png';
+    fistImage.src = 'assets/hand.png';
     
     await new Promise((resolve) => {
         if (fistImage.complete) {
@@ -637,10 +636,10 @@ const punch = async (current, next, container) => {
     requestAnimationFrame(animate);
 };
 
-effectRegistry.register('punch', punch, {
-    name: '👊 パンチ破壊',
-    category: 'special',
-    description: '拳が飛んできてガラスを割るようなエフェクト'
-});
-
-export { punch };
+if (typeof effectRegistry !== 'undefined') {
+    effectRegistry.register('punch', punch, {
+        name: 'パンチ破壊',
+        category: 'special',
+        description: '拳が飛んできてガラスを割るようなエフェクト'
+    });
+}

@@ -44,5 +44,5 @@ function effect_iforcom(current, next, container) {
 }
 
 if (typeof effectRegistry !== 'undefined') {
-    effectRegistry.register('iforcom', effect_iforcom, { name: '🔮IFORCOM', category: 'iforcom' });
+    effectRegistry.register('iforcom', effect_iforcom, { name: 'IFORCOM', category: 'iforcom' });
 }

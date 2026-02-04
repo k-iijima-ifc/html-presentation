@@ -40,7 +40,7 @@ function initializeContent() {
         btn.className = index === 0 ? 'btn active' : 'btn';
         btn.id = `page-btn-${index}`;
         btn.onclick = () => switchContent(index);
-        btn.innerHTML = `<span style="margin-right: 8px;">${content.icon}</span> ${content.name}`;
+        btn.textContent = content.name;
         buttonContainer.appendChild(btn);
 
         // iframe wrapper生成
@@ -64,9 +64,23 @@ function initializeContent() {
         '物理': ['bounce', 'elastic', 'swing'],
         'マスク': ['curtain', 'iris', 'wipe', 'diamond', 'blinds'],
         'フィルター': ['blur', 'pixelate', 'flash'],
-        'スペシャル': ['glitch', 'matrix', 'shatter', 'morph', 'newspaper', 'elementSwap', 'sandfall', 'underwater', 'burn', 'blackhole', 'punch', 'punchCombo'],
-        'IFORCOM': ['iforcom', 'iforcomDot', 'iforcomSweep', 'iforcomChain'],
-        '崩壊': ['collapse', 'collapsePhysics']
+        'スペシャル': ['glitch', 'matrix', 'shatter', 'morph', 'newspaper', 'elementSwap', 'sandfall', 'underwater', 'burn', 'blackhole', 'rainRipple', 'snow', 'punch', 'punchCombo'],
+        'スプライト': ['sprite1', 'sprite2'],
+        '崩壊': ['collapse', 'collapsePhysics'],
+        'IFORCOM': ['iforcom', 'iforcomDot', 'iforcomSweep', 'iforcomChain']
+    };
+
+    const groupKeyMap = {
+        '基本': 'basic',
+        '3D': '3d',
+        '回転': 'rotate',
+        '物理': 'physics',
+        'マスク': 'mask',
+        'フィルター': 'filter',
+        'スペシャル': 'special',
+        'スプライト': 'sprite',
+        '崩壊': 'collapse',
+        'IFORCOM': 'iforcom'
     };
 
     let isFirst = true;
@@ -75,9 +89,12 @@ function initializeContent() {
         const groupHeader = document.createElement('div');
         groupHeader.className = 'effect-group-header';
         groupHeader.innerHTML = `▼ ${groupName}`;
+        const groupKey = groupKeyMap[groupName] || 'other';
+        groupHeader.dataset.group = groupKey;
         
         const groupContainer = document.createElement('div');
         groupContainer.className = 'effect-group';
+        groupContainer.dataset.group = groupKey;
 
         effectKeys.forEach(key => {
             if (!effectDefinitions[key]) return;

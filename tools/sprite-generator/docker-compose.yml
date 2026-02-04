@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  sprite-generator:
+    build: .
+    container_name: sprite-generator
+    env_file:
+      - .env
+    volumes:
+      # 出力ディレクトリをマウント
+      - ./output:/app/output
+      # 入力動画用（オプション）
+      - ./input:/app/input
+    # CLIモード（デフォルト）
+    command: python sprite_generator.py --help
+
+  # 一括実行用
+  generate:
+    build: .
+    container_name: sprite-generate
+    env_file:
+      - .env
+    volumes:
+      - ./output:/app/output
+    command: >
+      python sprite_generator.py full 
+      --prompt "A cute 2D boy character walking, side view, simple white background, 8 frames walk cycle animation, pixel art style, consistent character design"
+      --output /app/output/sprite.png
+      --frames 8
+
+  # フレーム抽出のみ
+  extract:
+    build: .
+    container_name: sprite-extract
+    volumes:
+      - ./input:/app/input
+      - ./output:/app/output
+    command: >
+      python sprite_generator.py extract
+      --input /app/input/video.mp4
+      --output /app/output/frames
+      --mode keyframes
+      --count 12
+
+  # スプライト合成のみ
+  compose:
+    build: .
+    container_name: sprite-compose
+    volumes:
+      - ./output:/app/output
+    command: >
+      python sprite_generator.py compose
+      --input /app/output/frames
+      --output /app/output/sprite.png
+      --background

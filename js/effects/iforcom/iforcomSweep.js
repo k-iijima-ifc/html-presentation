@@ -15,15 +15,11 @@ async function effect_iforcomSweep(current, next, container) {
     engine.world.gravity.y = 0.8;
 
     const currentIframe = current.querySelector('iframe');
-    let capturedImage = null;
+    let capturedCanvas = null;
     
     try {
-        const iframeDoc = currentIframe.contentDocument || currentIframe.contentWindow.document;
-        if (iframeDoc && iframeDoc.body) {
-            const canvas = await html2canvas(iframeDoc.documentElement, {
-                width, height, scale: 1, useCORS: true, allowTaint: true, backgroundColor: '#ffffff', logging: false
-            });
-            capturedImage = canvas.toDataURL('image/png');
+        if (typeof window.captureIframeCanvas === 'function') {
+            capturedCanvas = await window.captureIframeCanvas(currentIframe, width, height);
         }
     } catch (e) {}
 
@@ -47,10 +43,25 @@ async function effect_iforcomSweep(current, next, container) {
             const block = document.createElement('div');
             block.className = 'falling-block';
             block.style.cssText = `width:${cellW}px;height:${cellH}px;left:0;top:0;opacity:0;`;
-            if (capturedImage) {
-                block.style.backgroundImage = `url(${capturedImage})`;
-                block.style.backgroundSize = `${width}px ${height}px`;
-                block.style.backgroundPosition = `-${x}px -${y}px`;
+            if (capturedCanvas) {
+                const blockCanvas = document.createElement('canvas');
+                blockCanvas.width = Math.ceil(cellW);
+                blockCanvas.height = Math.ceil(cellH);
+                blockCanvas.style.width = '100%';
+                blockCanvas.style.height = '100%';
+                const bctx = blockCanvas.getContext('2d');
+                bctx.drawImage(
+                    capturedCanvas,
+                    x,
+                    y,
+                    cellW,
+                    cellH,
+                    0,
+                    0,
+                    blockCanvas.width,
+                    blockCanvas.height
+                );
+                block.appendChild(blockCanvas);
             } else {
                 block.style.background = `hsl(${(row * cols + col) * 4}, 60%, 45%)`;
             }
@@ -145,5 +156,5 @@ async function effect_iforcomSweep(current, next, container) {
 }
 
 if (typeof effectRegistry !== 'undefined') {
-    effectRegistry.register('iforcomSweep', effect_iforcomSweep, { name: '🌊IFORCOMスイープ', category: 'iforcom' });
+    effectRegistry.register('iforcomSweep', effect_iforcomSweep, { name: 'IFORCOMスイープ', category: 'iforcom' });
 }

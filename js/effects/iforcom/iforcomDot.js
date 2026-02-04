@@ -62,5 +62,5 @@ function effect_iforcomDot(current, next, container) {
 }
 
 if (typeof effectRegistry !== 'undefined') {
-    effectRegistry.register('iforcomDot', effect_iforcomDot, { name: '⭕iFORCOM点', category: 'iforcom' });
+    effectRegistry.register('iforcomDot', effect_iforcomDot, { name: 'iFORCOM点', category: 'iforcom' });
 }

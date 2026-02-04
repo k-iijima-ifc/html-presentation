@@ -13,30 +13,17 @@ async function effect_elementSwap(current, next, container) {
     const currentIframe = current.querySelector('iframe');
     const nextIframe = next.querySelector('iframe');
     
-    let currentImage = null;
-    let nextImage = null;
+    let currentCanvas = null;
+    let nextCanvas = null;
 
     next.classList.remove('hidden');
     gsap.set(next, { opacity: 1 });
     await new Promise(resolve => setTimeout(resolve, 150));
 
     try {
-        const currentDoc = currentIframe.contentDocument || currentIframe.contentWindow.document;
-        if (currentDoc && currentDoc.body) {
-            const canvas = await html2canvas(currentDoc.documentElement, {
-                width, height, scale: 1, useCORS: true, allowTaint: true, backgroundColor: '#ffffff', logging: false
-            });
-            currentImage = canvas.toDataURL('image/png');
-        }
-    } catch (e) {}
-
-    try {
-        const nextDoc = nextIframe.contentDocument || nextIframe.contentWindow.document;
-        if (nextDoc && nextDoc.body) {
-            const canvas = await html2canvas(nextDoc.documentElement, {
-                width, height, scale: 1, useCORS: true, allowTaint: true, backgroundColor: '#ffffff', logging: false
-            });
-            nextImage = canvas.toDataURL('image/png');
+        if (typeof window.captureIframeCanvas === 'function') {
+            currentCanvas = await window.captureIframeCanvas(currentIframe, width, height);
+            nextCanvas = await window.captureIframeCanvas(nextIframe, width, height);
         }
     } catch (e) {}
 
@@ -60,10 +47,25 @@ async function effect_elementSwap(current, next, container) {
 
             const currentBlock = document.createElement('div');
             currentBlock.style.cssText = `position: absolute; left: ${x}px; top: ${y}px; width: ${cellW}px; height: ${cellH}px; overflow: hidden; z-index: 10;`;
-            if (currentImage) {
-                currentBlock.style.backgroundImage = `url(${currentImage})`;
-                currentBlock.style.backgroundSize = `${width}px ${height}px`;
-                currentBlock.style.backgroundPosition = `-${x}px -${y}px`;
+            if (currentCanvas) {
+                const blockCanvas = document.createElement('canvas');
+                blockCanvas.width = Math.ceil(cellW);
+                blockCanvas.height = Math.ceil(cellH);
+                blockCanvas.style.width = '100%';
+                blockCanvas.style.height = '100%';
+                const bctx = blockCanvas.getContext('2d');
+                bctx.drawImage(
+                    currentCanvas,
+                    x,
+                    y,
+                    cellW,
+                    cellH,
+                    0,
+                    0,
+                    blockCanvas.width,
+                    blockCanvas.height
+                );
+                currentBlock.appendChild(blockCanvas);
             } else {
                 currentBlock.style.background = `hsl(${index * 15}, 60%, 50%)`;
             }
@@ -83,10 +85,25 @@ async function effect_elementSwap(current, next, container) {
             }
 
             nextBlock.style.cssText = `position: absolute; left: ${startX}px; top: ${startY}px; width: ${cellW}px; height: ${cellH}px; overflow: hidden; z-index: 5;`;
-            if (nextImage) {
-                nextBlock.style.backgroundImage = `url(${nextImage})`;
-                nextBlock.style.backgroundSize = `${width}px ${height}px`;
-                nextBlock.style.backgroundPosition = `-${x}px -${y}px`;
+            if (nextCanvas) {
+                const blockCanvas = document.createElement('canvas');
+                blockCanvas.width = Math.ceil(cellW);
+                blockCanvas.height = Math.ceil(cellH);
+                blockCanvas.style.width = '100%';
+                blockCanvas.style.height = '100%';
+                const bctx = blockCanvas.getContext('2d');
+                bctx.drawImage(
+                    nextCanvas,
+                    x,
+                    y,
+                    cellW,
+                    cellH,
+                    0,
+                    0,
+                    blockCanvas.width,
+                    blockCanvas.height
+                );
+                nextBlock.appendChild(blockCanvas);
             } else {
                 nextBlock.style.background = `hsl(${index * 15 + 180}, 60%, 50%)`;
             }

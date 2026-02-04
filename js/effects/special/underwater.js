@@ -14,13 +14,12 @@ async function effect_underwater(current, next, container) {
     let capturedImage = null;
     
     try {
-        const iframeDoc = currentIframe.contentDocument || currentIframe.contentWindow.document;
-        if (iframeDoc && iframeDoc.body) {
-            capturedImage = await html2canvas(iframeDoc.documentElement, {
-                width, height, scale: 1, useCORS: true, allowTaint: true, backgroundColor: '#ffffff', logging: false
-            });
+        if (typeof window.captureIframeCanvas === 'function') {
+            capturedImage = await window.captureIframeCanvas(currentIframe, width, height);
         }
-    } catch (e) {
+    } catch (e) {}
+
+    if (!capturedImage) {
         const canvas = document.createElement('canvas');
         canvas.width = width;
         canvas.height = height;
@@ -204,5 +203,5 @@ async function effect_underwater(current, next, container) {
 }
 
 if (typeof effectRegistry !== 'undefined') {
-    effectRegistry.register('underwater', effect_underwater, { name: '🌊水中', category: 'special' });
+    effectRegistry.register('underwater', effect_underwater, { name: '水中', category: 'special' });
 }

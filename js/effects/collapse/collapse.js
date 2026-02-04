@@ -16,14 +16,12 @@ async function effect_collapse(current, next, container) {
     let capturedCanvas = null;
     
     try {
-        const iframeDoc = currentIframe.contentDocument || currentIframe.contentWindow.document;
-        if (iframeDoc && iframeDoc.body) {
-            capturedCanvas = await html2canvas(iframeDoc.documentElement, {
-                width: containerRect.width, height: containerRect.height,
-                scale: 1, useCORS: true, allowTaint: true, backgroundColor: '#ffffff', logging: false
-            });
+        if (typeof window.captureIframeCanvas === 'function') {
+            capturedCanvas = await window.captureIframeCanvas(currentIframe, containerRect.width, containerRect.height);
         }
-    } catch (e) {
+    } catch (e) {}
+
+    if (!capturedCanvas) {
         try {
             capturedCanvas = await html2canvas(current, {
                 width: containerRect.width, height: containerRect.height, scale: 1, backgroundColor: null
@@ -31,10 +29,7 @@ async function effect_collapse(current, next, container) {
         } catch (e2) {}
     }
 
-    let capturedImage = null;
-    if (capturedCanvas && capturedCanvas.width > 0) {
-        capturedImage = capturedCanvas.toDataURL('image/png');
-    }
+    const hasCapturedCanvas = capturedCanvas && capturedCanvas.width > 0;
 
     next.classList.remove('hidden');
     gsap.set(next, { opacity: 0 });
@@ -52,10 +47,25 @@ async function effect_collapse(current, next, container) {
             block.style.opacity = '0';
             block.style.overflow = 'hidden';
 
-            if (capturedImage) {
-                block.style.backgroundImage = `url(${capturedImage})`;
-                block.style.backgroundSize = `${containerRect.width}px ${containerRect.height}px`;
-                block.style.backgroundPosition = `-${col * blockWidth}px -${row * blockHeight}px`;
+            if (hasCapturedCanvas) {
+                const blockCanvas = document.createElement('canvas');
+                blockCanvas.width = Math.ceil(blockWidth);
+                blockCanvas.height = Math.ceil(blockHeight);
+                blockCanvas.style.width = '100%';
+                blockCanvas.style.height = '100%';
+                const bctx = blockCanvas.getContext('2d');
+                bctx.drawImage(
+                    capturedCanvas,
+                    col * blockWidth,
+                    row * blockHeight,
+                    blockWidth,
+                    blockHeight,
+                    0,
+                    0,
+                    blockCanvas.width,
+                    blockCanvas.height
+                );
+                block.appendChild(blockCanvas);
             } else {
                 const hue = (row * cols + col) * (360 / (rows * cols));
                 block.style.background = `linear-gradient(135deg, hsl(${hue}, 60%, 40%), hsl(${hue + 30}, 60%, 30%))`;
@@ -106,5 +116,5 @@ async function effect_collapse(current, next, container) {
 }
 
 if (typeof effectRegistry !== 'undefined') {
-    effectRegistry.register('collapse', effect_collapse, { name: '💥崩壊', category: 'collapse' });
+    effectRegistry.register('collapse', effect_collapse, { name: '崩壊', category: 'collapse' });
 }

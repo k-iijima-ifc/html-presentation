@@ -74,5 +74,34 @@
             <div class="post-caption"><strong>travel_lover</strong> 最高の週末でした！🌅 #旅行 #週末 #絶景</div>
         </div>
     </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+        <script>
+            window.addEventListener('message', async (event) => {
+                const data = event.data;
+                if (!data || data.type !== 'CAPTURE_REQUEST') return;
+                try {
+                    const canvas = await html2canvas(document.documentElement, {
+                        width: data.width,
+                        height: data.height,
+                        scale: 1,
+                        useCORS: true,
+                        allowTaint: true,
+                        backgroundColor: '#ffffff',
+                        logging: false
+                    });
+                    event.source?.postMessage({
+                        type: 'CAPTURE_RESPONSE',
+                        id: data.id,
+                        dataUrl: canvas.toDataURL('image/png')
+                    }, '*');
+                } catch (e) {
+                    event.source?.postMessage({
+                        type: 'CAPTURE_RESPONSE',
+                        id: data.id,
+                        dataUrl: null
+                    }, '*');
+                }
+            });
+        </script>
 </body>
 </html>

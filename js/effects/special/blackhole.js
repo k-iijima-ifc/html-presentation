@@ -18,20 +18,12 @@ async function effect_blackhole(current, next, container) {
     let currentImage = null;
     
     try {
-        const iframeDoc = currentIframe.contentDocument || currentIframe.contentWindow.document;
-        if (iframeDoc && iframeDoc.body) {
-            const canvas = await html2canvas(iframeDoc.documentElement, {
-                width: width,
-                height: height,
-                scale: 1,
-                useCORS: true,
-                allowTaint: true,
-                backgroundColor: '#ffffff',
-                logging: false
-            });
-            currentImage = canvas;
+        if (typeof window.captureIframeCanvas === 'function') {
+            currentImage = await window.captureIframeCanvas(currentIframe, width, height);
         }
-    } catch (e) {
+    } catch (e) {}
+
+    if (!currentImage) {
         const canvas = document.createElement('canvas');
         canvas.width = width;
         canvas.height = height;
@@ -49,20 +41,12 @@ async function effect_blackhole(current, next, container) {
     const nextIframe = next.querySelector('iframe');
     let nextImage = null;
     try {
-        const iframeDoc = nextIframe.contentDocument || nextIframe.contentWindow.document;
-        if (iframeDoc && iframeDoc.body) {
-            const canvas = await html2canvas(iframeDoc.documentElement, {
-                width: width,
-                height: height,
-                scale: 1,
-                useCORS: true,
-                allowTaint: true,
-                backgroundColor: '#ffffff',
-                logging: false
-            });
-            nextImage = canvas;
+        if (typeof window.captureIframeCanvas === 'function') {
+            nextImage = await window.captureIframeCanvas(nextIframe, width, height);
         }
-    } catch (e) {
+    } catch (e) {}
+
+    if (!nextImage) {
         const canvas = document.createElement('canvas');
         canvas.width = width;
         canvas.height = height;
